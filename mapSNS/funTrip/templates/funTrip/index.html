@@ -1,0 +1,18 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'funTrip/style.css' %}">
+
+{% if latest_question_list %}
+    <ul>
+        {% for question in latest_question_list %}
+            {% comment %} <li><a href="/funTrip/{{ question.id }}/">{{ question.question_text }}</a></li> {% endcomment %}
+            {% comment %}
+            {%url%}で書くことであとからURLの変更がしやすくなる
+            複数のアプリを作成する時、ビューの名前が被ってしまう時がある。
+            これを避けるために名前空間を追加する。e.x. polls:detail のように書くことでどのアプリのビューなのか分かるようにする
+            {% endcomment %}
+            <li><a href="{% url 'funTrip:detail' question.id %}">{{ question.question_text }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No questions are available.</p>
+{% endif %}
